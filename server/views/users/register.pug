@@ -1,23 +1,30 @@
 extends ../layouts/layout.pug
 block main
- h1 create user
- if(globalError)
-   h3= globalError
-  
- form(method="post" action="/users/create")
-  label(for="username") Username
-  input(type="text" name="username" value=username)
-  br
-  label(for="password") Password
-  input(type="password" name="password")
-  br
-  label(for="confirmPassword") Confirm password
-  input(type="password" name="confirmPassword")
-  br
-  label(for="confirmPassword") First Name
-  input(type="password" name="firstName")
-  br
-  label(for="confirmPassword") Last Name
-  input(type="password" name="lastName")
-  br
-  input(type="submit" value="create")
+  .row.container-fluid
+    if(globalError)
+      h3= globalError
+
+    .col-md-6.col-md-offset-3
+      form.form-horizontal(method="post" action="/users/create")
+        fieldset
+          legend Register Here 
+          .form-group
+            label.col-lg-2.control-label(for='username') Username
+            .col-lg-10
+              input#username.form-control(type='text', placeholder='Username' name="username")
+          .form-group
+            label.col-lg-2.control-label(for='inputEmail') Email
+            .col-lg-10
+              input#inputEmail.form-control(type='email', placeholder='Email' name="email")
+          .form-group
+            label.col-lg-2.control-label(for='inputPassword') Password
+            .col-lg-10
+              input#inputPassword.form-control(type='password', placeholder='Password' name="password")
+          .form-group
+            label.col-lg-2.control-label(for='confirmPassword') Confirm password
+            .col-lg-10
+              input#confirmPassword.form-control(type='password', placeholder='Confirm Password' name="confirmPassword" )
+
+          .form-group
+            .col-lg-10.col-lg-offset-2
+              button.btn.btn-primary(type='submit') Submit

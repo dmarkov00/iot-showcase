@@ -3,7 +3,7 @@ const auth = require('../config/auth')
 module.exports = (app) => {
   app.get('/', controllers.home.index)
 
-  app.get('/about', controllers.home.about)
+  app.get('/yourprojects', controllers.yourProjects.all)
 
   app.get('/users/register', controllers.users.register)
 
