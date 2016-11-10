@@ -1,0 +1,23 @@
+extends ../layouts/layout.pug
+block main
+ h1 create user
+ if(globalError)
+   h3= globalError
+  
+ form(method="post" action="/users/create")
+  label(for="username") Username
+  input(type="text" name="username" value=username)
+  br
+  label(for="password") Password
+  input(type="password" name="password")
+  br
+  label(for="confirmPassword") Confirm password
+  input(type="password" name="confirmPassword")
+  br
+  label(for="confirmPassword") First Name
+  input(type="password" name="firstName")
+  br
+  label(for="confirmPassword") Last Name
+  input(type="password" name="lastName")
+  br
+  input(type="submit" value="create")

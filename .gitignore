@@ -29,7 +29,10 @@ build/Release
 # Dependency directories
 node_modules
 jspm_packages
-
+typings
+jsconfig.json
+typings.json
+.vscode
 # Optional npm cache directory
 .npm
 
