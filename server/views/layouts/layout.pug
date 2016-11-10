@@ -2,51 +2,59 @@ doctype
 html
   head
     title Hello!
-    link(href='/css/libs/bootstrap.min.css', rel='stylesheet')
+    link(href="/bower_components/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
   body
-      nav.navbar.navbar-default
-        .container-fluid
-          .navbar-header
-            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
-              span.sr-only Toggle navigation
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
+    nav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          |  
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li.active           
+              span.sr-only (current)
+            li
+              a(href='/') Your Projects
+            li
+              a(href='#') Link
+
+
+
+          form.navbar-form.navbar-left(role='search')
+            .form-group
+              input.form-control(type='text', placeholder='Search for project or user')
             |  
-            a.navbar-brand(href='#') Brand
-          #bs-example-navbar-collapse-1.collapse.navbar-collapse
-            ul.nav.navbar-nav
-              li.active
-                a(href='#')
-                  | Link 
-                  span.sr-only (current)
-              li
-                a(href='#') Link
+            button.btn.btn-default(type='submit') Submit
+          ul.nav.navbar-nav.navbar-right
+            if(currentUser)
               li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                  | Dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')=currentUser.username
+                  
                   span.caret
                 ul.dropdown-menu(role='menu')
                   li
-                    a(href='#') Action
+                    a(href="#") Profile
+                  
                   li
-                    a(href='#') Another action
-                  li
-                    a(href='#') Something else here
-                  li.divider
-                  li
-                    a(href='#') Separated link
-                  li.divider
-                  li
-                    a(href='#') One more separated link
-            form.navbar-form.navbar-left(role='search')
-              .form-group
-                input.form-control(type='text', placeholder='Search')
-              |  
-              button.btn.btn-default(type='submit') Submit
-            ul.nav.navbar-nav.navbar-right
-              li
-                a(href='#') Link
+                    a(href="{{ url('/logout') }}", onclick="event.preventDefault();document.getElementById('logout-form').submit();") Logout
+                    
+                    form#logout-form(action="users/logout", method='POST', style='display: none;')
 
-  
+
+            else
+                li
+                  a(href="/users/register") Register
+                li
+                  a(href="/users/login") Login
+
+
   block main
+
+  block scripts
+  script(type="text/javascript" src="bower_components/jquery/dist/jquery.min.js")
+  script(type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js")
+  
