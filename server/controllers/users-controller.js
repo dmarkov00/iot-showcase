@@ -10,9 +10,7 @@ module.exports = {
     if (user.password !== user.confirmPassword) {
       user.globalError = 'Passwords do not match!'
       res.render('users/register', user)
-    }
-
-    else {
+    } else {
       user.salt = encryption.generateSalt()
       user.hashedPass = encryption.generateHashedPassword(user.salt, user.password)
 
@@ -35,24 +33,23 @@ module.exports = {
   authenticate: (req, res) => {
     let inputUser = req.body
 
-    User.findOne({ username: inputUser.username })
-    .then(user => {
-      if (!user.authenticate(inputUser.password)) {
-        res.render('users/login', {globalError: 'Invalid username or password'})
-      } else {
-        req.logIn(user, (err, user) => {
-          if (err) {
-            res.render('users/login', {globalError: 'ops 500 passport ima bug'})
-            return
-          }
-          res.redirect('/')
-        })
-      }
-    })
+    User.findOne({ email: inputUser.email })
+      .then(user => {
+        if (!user.authenticate(inputUser.password)) {
+          res.render('users/login', {globalError: 'Invalid username or password'})
+        } else {
+          req.logIn(user, (err, user) => {
+            if (err) {
+              res.render('users/login', {globalError: 'ops 500 passport ima bug'})
+              return
+            }
+            res.redirect('/')
+          })
+        }
+      })
   },
   logout: (req, res) => {
     req.logout()
     res.redirect('/')
   }
 }
-

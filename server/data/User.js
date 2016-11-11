@@ -4,9 +4,10 @@ const encryption = require('../utilities/encryption')
 let requiredValidationMessage = '{PATH} is reqired'
 
 let userSchema = mongoose.Schema({
+  email: {type: String, requiredValidationMessage, unique: true},
   username: { type: String, required: requiredValidationMessage, unique: true },
-  firstName: { type: String, required: requiredValidationMessage },
-  lastName: { type: String, required: requiredValidationMessage },
+  firstName: { type: String },
+  lastName: { type: String },
   salt: String,
   hashedPass: String,
   roles: [String]
@@ -15,7 +16,7 @@ let userSchema = mongoose.Schema({
 userSchema.method({
   authenticate: function (password) {
     if (encryption.generateHashedPassword(this.salt, password) ===
-         this.hashedPass) { return true } else { return false }
+      this.hashedPass) { return true } else { return false }
   }
 })
 
@@ -39,4 +40,3 @@ module.exports.seedAdminUser = () => {
     }
   })
 }
-
