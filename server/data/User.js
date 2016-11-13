@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const encryption = require('../utilities/encryption')
-
 let requiredValidationMessage = '{PATH} is reqired'
 
 let userSchema = mongoose.Schema({
@@ -8,6 +7,8 @@ let userSchema = mongoose.Schema({
   username: { type: String, required: requiredValidationMessage, unique: true },
   firstName: { type: String },
   lastName: { type: String },
+  profilePicture: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
+  projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
   salt: String,
   hashedPass: String,
   roles: [String]
