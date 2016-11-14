@@ -51,10 +51,10 @@ module.exports = {
 
     User.findOne({ email: inputUser.email })
       .then(user => {
-        if (!user.authenticate(inputUser.password)) { // the method authenticate comes from the user model
-          res.render('users/login', {errorMessage: 'Invalid username or password.'})
+        if (user === null || !user.authenticate(inputUser.password)) { // the method authenticate comes from the user model
+          res.render('users/login', { globalError: 'Invalid username or password' })
         } else {
-          req.logIn(user, (err, user) => { // method comes from passport
+          req.logIn(user, (err, user) => { // method comes from passport, it attaches it to the reques object
             if (err) {
               res.render('users/login', {globalError: 'Internal server error'})
               return

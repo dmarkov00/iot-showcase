@@ -9,12 +9,12 @@ module.exports = () => {
   },
 
     (username, password, done) => {
-      User.findOne({ usern: username }).then(user => {
-        console.log(user)
-        if (!user) return done(null, false)
-        if (!user.authenticate(password)) return done(null, false)
-        return done(null, user)
-      })
+      User.findOne({ username: username })
+        .then(user => {
+          if (!user) return done(null, false)
+          if (!user.authenticate(password)) return done(null, false)
+          return done(null, user)
+        })
     }))
 
   passport.serializeUser((user, done) => {
