@@ -14,16 +14,14 @@ html
             span.icon-bar
           |  
           a.navbar-brand(href='/')
-                img(alt='Brand', src='/images/logo.png' style=" margin-top: -10px;")
+                img(alt='Home', src='/images/logo.png' style=" margin-top: -10px;")
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav
             li.active           
               span.sr-only (current)
             li
-              a(href='/yourprojects') Your Projects
-            li
-              a(href='#') Link
-              
+              a(href='/about') About
+           
 
 
 
@@ -33,7 +31,34 @@ html
             |  
             button.btn.btn-default(type='submit') Submit
           ul.nav.navbar-nav.navbar-right
+
             if(currentUser)
+
+            
+              ul.nav.navbar-nav
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Manage projects
+                    span.glyphicon.glyphicon-wrench.pull-right
+                  ul.dropdown-menu
+                    li
+                      a(href='/projects/add')
+                        | Add new
+                        span.glyphicon.glyphicon-plus.pull-right
+
+                    li.divider
+                    li
+                      a(href='/projects/edit')
+                        | Edit
+                        span.glyphicon.glyphicon-pencil.pull-right   
+                    li.divider
+                    li
+                      a(href='/projects/statistics')
+                        | Statistics
+                        span.glyphicon.glyphicon-stats.pull-right
+                   
+
+                
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')=currentUser.username
                   
@@ -41,13 +66,13 @@ html
                 ul.dropdown-menu(role='menu')
                   li
                     a(href="/users/profile") Profile
-                  
+                     span.glyphicon.glyphicon-user.pull-right
+                  li.divider   
                   li
                     a(onclick="event.preventDefault();document.getElementById('logout-form').submit();") Logout
-                    
-                    form#logout-form(action="users/logout", method='POST', style='display: none;')
-
-
+                     span.glyphicon.glyphicon-log-out.pull-right
+                    form#logout-form(action="/users/logout", method='POST', style='display: none;')
+                
             else
                 li
                   a(href="/users/register") Register
@@ -58,6 +83,6 @@ html
   block main
 
   block scripts
-  script(type="text/javascript" src="bower_components/jquery/dist/jquery.min.js")
-  script(type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js")
+  script(type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js")
+  script(type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js")
   
