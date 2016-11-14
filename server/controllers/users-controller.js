@@ -3,8 +3,14 @@ let User = require('mongoose').model('User')
 const emailRegularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 let errorMessages = []
 module.exports = {
+  login: (req, res) => {
+    res.render('users/login')
+  },
   register: (req, res) => {
     res.render('users/register')
+  },
+  profile: (req, res) => {
+    res.render('users/profile')
   },
   create: (req, res) => {
     let user = req.body
@@ -42,9 +48,6 @@ module.exports = {
     } else {
       return res.render('users/register', user)
     }
-  },
-  login: (req, res) => {
-    res.render('users/login')
   },
   authenticate: (req, res) => { // called on user login request
     let inputUser = req.body
