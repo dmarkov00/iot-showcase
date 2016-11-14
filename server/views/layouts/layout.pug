@@ -1,7 +1,7 @@
 doctype
 html
   head
-    title Hello!
+    title IOT showcase
     link(href="/bower_components/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
   body
     nav.navbar.navbar-default
@@ -13,6 +13,8 @@ html
             span.icon-bar
             span.icon-bar
           |  
+          a.navbar-brand(href='/')
+                img(alt='Brand', src='/images/logo.png' style=" margin-top: -10px;")
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav
             li.active           
@@ -21,6 +23,7 @@ html
               a(href='/yourprojects') Your Projects
             li
               a(href='#') Link
+              
 
 
 
@@ -40,7 +43,7 @@ html
                     a(href="/users/profile") Profile
                   
                   li
-                    a(href="{{ url('/logout') }}", onclick="event.preventDefault();document.getElementById('logout-form').submit();") Logout
+                    a(onclick="event.preventDefault();document.getElementById('logout-form').submit();") Logout
                     
                     form#logout-form(action="users/logout", method='POST', style='display: none;')
 

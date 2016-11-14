@@ -1,8 +1,9 @@
 extends ../layouts/layout.pug
 block main
   .row.container-fluid
-    if(globalError)
-      h3= globalError
+    if(errorMessages)
+      each item in errorMessages
+        li= item
 
     .col-md-6.col-md-offset-3
       form.form-horizontal(method="post" action="/users/create")
@@ -11,19 +12,19 @@ block main
           .form-group
             label.col-lg-2.control-label(for='username') Username
             .col-lg-10
-              input#username.form-control(type='text', placeholder='Username' name="username")
+              input#username.form-control(type='text', placeholder='Username' name="username" value=username)
           .form-group
             label.col-lg-2.control-label(for='inputEmail') Email
             .col-lg-10
-              input#inputEmail.form-control(type='email', placeholder='Email' name="email")
+              input#inputEmail.form-control(type='email', placeholder='Email' name="email" value=email)
           .form-group
             label.col-lg-2.control-label(for='inputPassword') Password
             .col-lg-10
-              input#inputPassword.form-control(type='password', placeholder='Password' name="password")
+              input#inputPassword.form-control(type='password', placeholder='Password' name="password" value=password)
           .form-group
             label.col-lg-2.control-label(for='confirmPassword') Confirm password
             .col-lg-10
-              input#confirmPassword.form-control(type='password', placeholder='Confirm Password' name="confirmPassword" )
+              input#confirmPassword.form-control(type='password', placeholder='Confirm Password' name="confirmPassword" value=confirmPassword )
 
           .form-group
             .col-lg-10.col-lg-offset-2
