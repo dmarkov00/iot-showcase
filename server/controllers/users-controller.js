@@ -14,27 +14,28 @@ module.exports = {
   },
   create: (req, res) => {
     let user = req.body
-
+    errorMessages = []
+    user.errorMessages = errorMessages
     // validating user input from the form
     if (user.password === '' || user.confirmPassword === '' || user.username === '' || user.email === '') {
       errorMessages.push('All fields are required.')
+      return res.render('users/register', errorMessages)
     } if (!emailRegularExpression.test(user.email)) {
       errorMessages.push("That doesn't appear to be a valid email address.")
     } if (user.password !== user.confirmPassword) {
       errorMessages.push('Passwords do not match.')
-    } if (user.password < 4) {
+    } if (user.password.length < 4) {
       // TODO: add better validation for password(regex for strong password)
       errorMessages.push('Password too short.')
-    } if (user.username < 4) {
+    } if (user.username.length < 4) {
       errorMessages.push('Username too short.')
-      user.errorMessages = errorMessages
-    } if (errorMessages.length === 0) {
+    }
+    // error messages check before creating new user
+    if (errorMessages.length === 0) {
       user.salt = encryption.generateSalt()
       user.hashedPass = encryption.generateHashedPassword(user.salt, user.password)
 
       User.create(user).then(user => {
-        // if (err) errorMessages.push(err)
-
         req.logIn(user, (err, user) => {
           if (err) {
             user.errorMessages = err
@@ -44,6 +45,14 @@ module.exports = {
 
           res.redirect('/')
         })
+      }).catch(err => {
+        console.log(err)
+        if (err.errors.email) {
+          errorMessages.push('The email is already being used.')
+        } else {
+          errorMessages.push('The username is already being used')
+        }
+        res.render('users/register', user)
       })
     } else {
       return res.render('users/register', user)

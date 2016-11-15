@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const encryption = require('../utilities/encryption')
+const beautifyUnique = require('mongoose-beautiful-unique-validation')
 let requiredValidationMessage = '{PATH} is reqired'
 
 let userSchema = mongoose.Schema({
@@ -20,6 +21,8 @@ userSchema.method({
       this.hashedPass) { return true } else { return false }
   }
 })
+
+userSchema.plugin(beautifyUnique)
 
 let User = mongoose.model('User', userSchema)
 
