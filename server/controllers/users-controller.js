@@ -19,7 +19,7 @@ module.exports = {
     // validating user input from the form
     if (user.password === '' || user.confirmPassword === '' || user.username === '' || user.email === '') {
       errorMessages.push('All fields are required.')
-      return res.render('users/register', errorMessages)
+      return res.render('users/register', user)
     } if (!emailRegularExpression.test(user.email)) {
       errorMessages.push("That doesn't appear to be a valid email address.")
     } if (user.password !== user.confirmPassword) {

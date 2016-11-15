@@ -2,6 +2,7 @@ extends ../layouts/layout.pug
 block main
   .row.container-fluid
     if(errorMessages)
+      ul
       each item in errorMessages
         li= item
 

@@ -4,8 +4,8 @@ const beautifyUnique = require('mongoose-beautiful-unique-validation')
 let requiredValidationMessage = '{PATH} is reqired'
 
 let userSchema = mongoose.Schema({
-  email: {type: String, requiredValidationMessage, unique: true},
   username: { type: String, required: requiredValidationMessage, unique: true },
+  email: {type: String, requiredValidationMessage, unique: true},
   firstName: { type: String },
   lastName: { type: String },
   profilePicture: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
