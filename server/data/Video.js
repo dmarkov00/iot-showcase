@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
 
 let videoSchema = mongoose.Schema({
-  _projectId: {type: Number, ref: 'User'}
+  _uploaderId: {type: Number, ref: 'User'},
+  _projectId: {type: Number, ref: 'Project'},
+  name: {type: String}
 })
 
-let Video = mongoose.model('Image', videoSchema)
+let Video = mongoose.model('Video', videoSchema)
 
 module.exports = Video

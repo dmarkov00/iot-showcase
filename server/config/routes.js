@@ -7,11 +7,12 @@ module.exports = (app) => {
 
   // User routes
 
-  // routes that return user views
+  // user routes that return user views
   app.get('/users/login', controllers.users.login)
   app.get('/users/register', controllers.users.register)
   app.get('/users/profile', controllers.users.profile)
 
+  // user routes for executing functionality
   app.post('/users/login', controllers.users.authenticate)
   app.post('/users/register', controllers.users.create)
   app.post('/users/logout', controllers.users.logout)
@@ -22,6 +23,9 @@ module.exports = (app) => {
   app.get('/projects/add', auth.isAuthenticated, controllers.projects.add)
   app.get('/projects/edit', auth.isAuthenticated, controllers.projects.edit)
   app.get('/projects/statistics', auth.isAuthenticated, controllers.projects.statistics)
+
+  // project routes for executing functionality
+  app.post('/projects/create', auth.isAuthenticated, controllers.projects.create)
 
   app.all('*', (req, res) => {
     res.render('errors/error.pug')

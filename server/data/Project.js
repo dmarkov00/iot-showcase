@@ -1,17 +1,25 @@
 const mongoose = require('mongoose')
-// const Video = mongoose.model('Video')
-// const Image = mongoose.model('Image')
-// const User = mongoose.model('User')
+
+// let imageSchema = require('./Image').schema
+// let videoSchema = require('./Video').schema
+
+// let userSchema = require('./User')
 
 let projectSchema = mongoose.Schema({
-  _creatorId: {type: Number, ref: 'User'},
+  creator: {
+    _id: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    username: {type: String}
+  },  // ObjectId, Number, String, and Buffer are valid for use as refs.
   name: {type: String, required: true},
   stars: {type: Number},
   gitRepository: {type: String},
-  videos: [{type: mongoose.Schema.Types.ObjectId, ref: 'Video'}],
-  images: [{type: mongoose.Schema.Types.ObjectId, ref: 'Image'}],
+  videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
+  images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
   description: {type: String},
-  contributors: [{type: Number, ref: 'User'}]
+  contributors: [{
+    _userId: {type: Number},
+    username: {type: String}
+  }]
 
 })
 

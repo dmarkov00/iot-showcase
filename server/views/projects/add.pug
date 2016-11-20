@@ -1,7 +1,18 @@
 extends ../layouts/layout.pug
 
 block main
- h1 Hello from the add page!
-
+    .row
+    .col-md-6.col-md-offset-3
+        form(method="post" action="/projects/create")
+            .form-group
+                label(for='projectName') Project name
+                
+                input#projectName.form-control(type='text', placeholder='Project name' name="name")
+            .form-group
+                label(for='description') Description
+                textarea#description.form-control(rows='5', placeholder='Add the description of your project' name="description")
+            
+  
+            button.btn.btn-default(type='submit') Create project
 
 
