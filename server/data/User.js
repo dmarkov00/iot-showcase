@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const encryption = require('../utilities/encryption')
 const beautifyUnique = require('mongoose-beautiful-unique-validation')
-let requiredValidationMessage = '{PATH} is reqired'
+let requiredValidationMessage = '{PATH} is required'
 
 require('./Project')
 let imageSchema = require('./Image').schema

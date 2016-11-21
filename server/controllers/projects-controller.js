@@ -1,7 +1,6 @@
 let mongoose = require('mongoose')
 let Project = mongoose.model('Project')
 let User = mongoose.model('User')
-
 module.exports = {
   add: (req, res) => {
     res.render('projects/add')
@@ -15,7 +14,6 @@ module.exports = {
   create: (req, res) => {
     let project = req.body
 
-    console.log(project)
     Project.create({
       creator: {
         _id: req.user._id,
@@ -24,17 +22,18 @@ module.exports = {
       name: project.name,
       description: project.description
     }).then(savedProject => {
-      console.log(savedProject._id)
-      console.log(req.user._id)
       User.update({_id: req.user._id},
-        { projects: {
-          _id: savedProject._id }
-        },
+        {$push: {projects: { _id: savedProject._id }}},
         (err) => {
-          console.log(err)
-        }
-
-      )
+          if (err) {
+            console.log(err)
+            res.render('errors/error')
+          } else { res.render('home/index') }
+        })
+    }, (err) => {
+      if (err) {
+        console.log('problem with inserting into projects')
+      }
     })
   }
 }
