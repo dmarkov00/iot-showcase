@@ -12,14 +12,12 @@ let userSchema = mongoose.Schema({
   firstName: { type: String },
   lastName: { type: String },
   profilePicture: { type: imageSchema },
-  projects: [{
-    _id: { type: mongoose.Schema.Types.ObjectId,
-    ref: 'Project' }
-  }],                    // ObjectId, Number, String, and Buffer are valid for use as refs.
+  projects: [{ _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'} }],
   salt: String,
   hashedPass: String,
   roles: [String]
 })
+// ObjectId, Number, String, and Buffer are valid for use as refs.
 
 userSchema.method({
   authenticate: function (password) {

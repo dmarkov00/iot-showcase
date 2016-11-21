@@ -22,13 +22,15 @@ module.exports = {
       name: project.name,
       description: project.description
     }).then(savedProject => {
-      User.update({_id: req.user._id},
-        {$push: {projects: { _id: savedProject._id }}},
+      User.update({_id: req.user._id}, // select which user to update
+        {$push: {projects: { _id: savedProject._id }}}, // what to update $push is for not overwriting the previous entries
         (err) => {
           if (err) {
             console.log(err)
-            res.render('errors/error')
-          } else { res.render('home/index') }
+            res.render('errors/error') // TODO: pass error object
+          } else {
+            res.redirect('/')
+          }
         })
     }, (err) => {
       if (err) {

@@ -1,0 +1,11 @@
+extends ../layouts/layout.pug
+
+block main
+
+ if(projects === undefined || projects.length == 0)
+    h1 No projects currently available: = #{projects}
+ else 
+   h1 Check out your projects:
+    ul
+    each val in projects
+        li= val._id.name + ' ' + val._id.description
