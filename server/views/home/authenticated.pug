@@ -3,9 +3,12 @@ extends ../layouts/layout.pug
 block main
 
  if(projects === undefined || projects.length == 0)
-    h1 No projects currently available: = #{projects}
+    h1 No projects currently available:
  else 
-   h1 Check out your projects:
+   h3 Check out your projects:
     ul
     each val in projects
-        li= val._id.name + ' ' + val._id.description
+        li
+         a(href='/'+val._id.creator.username+'/'+val._id.name)= val._id.name
+         br
+         =val._id.description

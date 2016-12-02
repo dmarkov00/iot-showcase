@@ -24,8 +24,12 @@ module.exports = (app) => {
   app.get('/projects/edit', auth.isAuthenticated, controllers.projects.edit)
   app.get('/projects/statistics', auth.isAuthenticated, controllers.projects.statistics)
 
+  // route for project details
+  app.get('/:creator/:name', auth.isAuthenticated, controllers.projects.details)
+
   // project routes for executing functionality
   app.post('/projects/create', auth.isAuthenticated, controllers.projects.create)
+
 
   app.all('*', (req, res) => {
     res.render('errors/error.pug')

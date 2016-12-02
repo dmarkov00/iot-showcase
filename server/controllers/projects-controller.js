@@ -13,6 +13,7 @@ module.exports = {
   },
   create: (req, res) => {
     let project = req.body
+    // console.log(req.files)
 
     Project.create({
       creator: {
@@ -21,7 +22,7 @@ module.exports = {
       },
       name: project.name,
       description: project.description
-    }).then(savedProject => {
+    }).then(savedProject => { // adding reference to the user with the newly created project
       User.update({_id: req.user._id}, // select which user to update
         {$push: {projects: { _id: savedProject._id }}}, // what to update $push is for not overwriting the previous entries
         (err) => {
@@ -37,5 +38,18 @@ module.exports = {
         console.log('problem with inserting into projects')
       }
     })
+  },
+  details: (req, res) => {
+    console.log(req.params)
+    let creatorName = req.params.creator
+    Project.findOne({'creator.username': creatorName}).then((err, project) => {
+      if (err) {
+        console.log(err)
+      }
+    })
+    // may not pass the whole project object
+    // pass just the params and query for the whole object
+
+    res.render('projects/details')
   }
 }

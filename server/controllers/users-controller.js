@@ -1,4 +1,5 @@
 let encryption = require('../utilities/encryption')
+let uploading = require('../utilities/uploading')
 let User = require('mongoose').model('User')
 const emailRegularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 let errorMessages = []
@@ -36,6 +37,7 @@ module.exports = {
       user.hashedPass = encryption.generateHashedPassword(user.salt, user.password)
 
       User.create(user).then(user => {
+        uploading.createDir('/', user.username)
         req.logIn(user, (err, user) => {
           if (err) {
             user.errorMessages = err
