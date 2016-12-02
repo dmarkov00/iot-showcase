@@ -40,16 +40,17 @@ module.exports = {
     })
   },
   details: (req, res) => {
-    console.log(req.params)
+    let projectName = req.params.name
     let creatorName = req.params.creator
-    Project.findOne({'creator.username': creatorName}).then((err, project) => {
-      if (err) {
-        console.log(err)
-      }
-    })
-    // may not pass the whole project object
-    // pass just the params and query for the whole object
-
-    res.render('projects/details')
+    Project.findOne({'name': projectName, 'creator.username': creatorName})
+      .exec((err, project) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log(project)
+        res.render('projects/details', project)
+      })
+  // may not pass the whole project object
+  // pass just the params and query for the whole object
   }
 }

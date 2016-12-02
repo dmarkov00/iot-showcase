@@ -11,10 +11,6 @@ module.exports = {
       .populate('projects._id', 'name description creator') // select only the specified fieds
       .exec((err, user) => {
         if (err) { console.log(err) } else {
-          console.log(user)
-          console.log('--------------')
-          
-          console.log(user.projects)
           res.render('home/authenticated', { 'projects': user.projects })
         }
       })
