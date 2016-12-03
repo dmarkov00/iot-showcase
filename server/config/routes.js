@@ -1,5 +1,6 @@
 const controllers = require('../controllers')
 const auth = require('../config/auth')
+// const multer = require('../config/multer')
 module.exports = (app) => {
   app.get('/', controllers.home.index)
 
@@ -29,7 +30,6 @@ module.exports = (app) => {
 
   // project routes for executing functionality
   app.post('/projects/create', auth.isAuthenticated, controllers.projects.create)
-
 
   app.all('*', (req, res) => {
     res.render('errors/error.pug')
