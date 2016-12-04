@@ -13,6 +13,10 @@ let userSchema = mongoose.Schema({
   lastName: { type: String },
   // profilePicture: { type: imageSchema },
   projects: [{ _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Project'} }],
+  contributesTo: [{
+    projectName: {type: String},
+    creatorName: {type: String}
+  }], // array project names
   salt: String,
   hashedPass: String,
   roles: [String]

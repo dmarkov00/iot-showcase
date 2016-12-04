@@ -1,7 +1,15 @@
 extends ../layouts/layout.pug
 
 block main
- h1 Hello from the edit page!
+ h1 Your projects:
+ each val in projects
+        li
+            a(href='/'+val._id.creator.username+'/'+val._id.name)= val._id.name
+            br
+            a(href='/projects/remove/' +val._id.name) REMOVE
+                        
+
+ h1 Projects you contribute to:
 
 
 

@@ -37,7 +37,7 @@ module.exports = {
       user.hashedPass = encryption.generateHashedPassword(user.salt, user.password)
 
       User.create(user).then(user => {
-        uploading.createDir('/', user.username)
+        // uploading.createDir('/', user.username)
         req.logIn(user, (err, user) => {
           if (err) {
             user.errorMessages = err

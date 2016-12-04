@@ -6,7 +6,16 @@ module.exports = {
     res.render('projects/add')
   },
   edit: (req, res) => {
-    res.render('projects/edit')
+    let user = req.user
+
+    User.findOne({_id: user._id}, 'projects contributesTo') // selects only the projects and contributesTo for the current user
+      .populate('projects._id', 'name description creator') // selects only the specified fieds
+      .exec((err, user) => {
+        if (err) { console.log(err) } else {
+          // console.log(user)
+          res.render('projects/edit', { 'projects': user.projects })
+        }
+      })
   },
   statistics: (req, res) => {
     res.render('projects/statistics')
@@ -35,9 +44,34 @@ module.exports = {
         })
     }, (err) => {
       if (err) {
-        console.log('problem with inserting into projects')
+        console.log(err + ' problem with inserting into projects')
       }
     })
+  },
+  remove: (req, res) => {
+    let projectName = req.params.name
+
+    console.log(projectName)
+    console.log(req.user._id)
+
+
+    Project.remove({ name: projectName, creator: {_id: req.user._id} })
+      .then((removedProject) => {
+        User.update({_id: req.user._id},
+          {$pull: {projects: { _id: removedProject._id }}},
+          (err) => {
+            if (err) {
+              console.log(err)
+              res.render('errors/error') // TODO: pass error object
+            } else {
+              res.redirect('/projects/edit')
+            }
+          })
+      }, (err) => {
+        if (err) {
+          console.log(err + ' From removing a project')
+        }
+      })
   },
   details: (req, res) => {
     let projectName = req.params.name
@@ -50,7 +84,5 @@ module.exports = {
         console.log(project)
         res.render('projects/details', project)
       })
-  // may not pass the whole project object
-  // pass just the params and query for the whole object
   }
 }

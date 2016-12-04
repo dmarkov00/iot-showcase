@@ -16,10 +16,7 @@ let projectSchema = mongoose.Schema({
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Video' }],
   images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
   description: {type: String},
-  contributors: [{
-    _userId: {type: Number},
-    username: {type: String}
-  }]
+  contributors: [String] // array of usernames
 
 })
 
