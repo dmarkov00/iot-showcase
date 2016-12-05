@@ -51,14 +51,14 @@ module.exports = {
   remove: (req, res) => {
     let projectName = req.params.name
 
-    console.log(projectName)
-    console.log(req.user._id)
-
-
-    Project.remove({ name: projectName, creator: {_id: req.user._id} })
-      .then((removedProject) => {
+    Project.find({ 'name': projectName, 'creator._id': req.user._id })
+      .exec((err, project) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log(project)
         User.update({_id: req.user._id},
-          {$pull: {projects: { _id: removedProject._id }}},
+          {$pull: {projects: { _id: project._id }}},
           (err) => {
             if (err) {
               console.log(err)
@@ -67,10 +67,14 @@ module.exports = {
               res.redirect('/projects/edit')
             }
           })
-      }, (err) => {
+      })
+
+    Project.remove({ 'name': projectName, 'creator._id': req.user._id })
+      .exec((err, result) => {
         if (err) {
-          console.log(err + ' From removing a project')
+          console.log(err)
         }
+        res.redirect('/projects/edit')
       })
   },
   details: (req, res) => {
