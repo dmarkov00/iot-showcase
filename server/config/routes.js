@@ -32,6 +32,9 @@ module.exports = (app) => {
   app.post('/projects/create', auth.isAuthenticated, controllers.projects.create)
   app.get('/projects/remove/:name', auth.isAuthenticated, controllers.projects.remove)
 
+  // Search routes
+  app.get('/search', controllers.search)
+
   app.all('*', (req, res) => {
     res.render('errors/error.pug')
     res.end()

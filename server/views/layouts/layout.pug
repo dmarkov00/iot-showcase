@@ -25,10 +25,9 @@ html
 
 
 
-          form.navbar-form.navbar-left(role='search')
+          form.navbar-form.navbar-left(method="get" action="/search")
             .form-group
-              input.form-control(type='text', placeholder='Search for project or user')
-            |  
+              input.form-control(type='text', name="q" , placeholder='Search for project or user') 
             button.btn.btn-default(type='submit') Submit
           ul.nav.navbar-nav.navbar-right
 
